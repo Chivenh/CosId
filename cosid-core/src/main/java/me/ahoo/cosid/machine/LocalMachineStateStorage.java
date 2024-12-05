@@ -162,7 +162,8 @@ public class LocalMachineStateStorage implements MachineStateStorage {
         if (!stateDirectory.exists()) {
             return new File[0];
         }
-        return stateDirectory.listFiles(((dir, name) -> name.startsWith(namespace)));
+        String encodedNamespace = BaseEncoding.base64().encode(namespace.getBytes(Charsets.UTF_8));
+        return stateDirectory.listFiles(((dir, name) -> name.startsWith(encodedNamespace)));
     }
     
     @Override
